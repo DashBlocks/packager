@@ -415,7 +415,8 @@ class Scaffolding extends EventTarget {
           continue;
         }
         // TODO: add to DOM in same order as appears in list
-        const mode = monitorData.get('mode');
+        const value = monitorData.get('value');
+        const mode = Array.isArray(value) ? 'list' : monitorData.get('mode');
         if (mode === 'list') {
           this._monitors.set(id, new ListMonitor(this, monitorData));
         } else {
