@@ -17,12 +17,13 @@ jobs:
       uses: actions/checkout@v4
       with:
         persist-credentials: false
+        fetch-depth: 0
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 22
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --force
     - name: Test
       run: npm test
     - name: Build website
