@@ -20,14 +20,14 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm ci
+    - name: Update dependencies
+      run: npm update
     - name: Build
       run: npm run build
     - name: Test
       run: npm test
-    - name: Build standalone
-      run: npm run build-standalone-prod
-    - name: Upload standalone artifact
+    - name: Upload packager artifact
       uses: actions/upload-artifact@v4
       with:
-        name: standalone
-        path: dist/standalone.html
+        name: packager
+        path: dist/index.html
