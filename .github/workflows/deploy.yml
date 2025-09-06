@@ -17,13 +17,14 @@ jobs:
       uses: actions/checkout@v4
       with:
         persist-credentials: false
-        fetch-depth: 0
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 22
     - name: Install dependencies
-      run: npm ci --force
+      run: npm ci
+    - name: Update dependencies
+      run: npm update
     - name: Test
       run: npm test
     - name: Build website
@@ -33,10 +34,6 @@ jobs:
         cp -r dist/* web
       env:
         ENABLE_SERVICE_WORKER: "1"
-    - name: Build standalone
-      run: |
-        npm run build-standalone-prod
-        cp dist/standalone.html web
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
