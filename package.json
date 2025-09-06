@@ -55,6 +55,7 @@
     "jest": "^27.4.5",
     "rimraf": "^2.7.1",
     "scratch-audio": "github:TurboWarp/scratch-audio#develop",
+    "scratch-gui": "DashBlocks/scratch-gui#develop",
     "scratch-render": "github:TurboWarp/scratch-render#develop",
     "scratch-vm": "github:DashBlocks/scratch-vm#develop-module",
     "style-loader": "^2.0.0",
