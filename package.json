@@ -38,6 +38,7 @@
     "@turbowarp/sbdl": "^5.0.1",
     "cross-fetch": "^4.1.0",
     "scratch-gui": "github:DashBlocks/scratch-gui",
+    "scratch-vm": "github:DashBlocks/scratch-vm#develop-module",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
@@ -57,7 +58,6 @@
     "rimraf": "^2.7.1",
     "scratch-audio": "github:TurboWarp/scratch-audio#develop",
     "scratch-render": "github:TurboWarp/scratch-render#develop",
-    "scratch-vm": "github:DashBlocks/scratch-vm",
     "style-loader": "^2.0.0",
     "svelte": "^3.44.3",
     "svelte-loader": "^3.1.2",
