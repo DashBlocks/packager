@@ -37,6 +37,8 @@
     "@turbowarp/jszip": "^3.11.0",
     "@turbowarp/sbdl": "^5.0.1",
     "cross-fetch": "^4.1.0",
+    "scratch-gui": "github:DashBlocks/scratch-gui#develop",
+    "scratch-render-fonts": "github:DashBlocks/penguinmod-render-fonts",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
@@ -55,7 +57,6 @@
     "jest": "^27.4.5",
     "rimraf": "^2.7.1",
     "scratch-audio": "github:TurboWarp/scratch-audio#develop",
-    "scratch-gui": "DashBlocks/scratch-gui#develop",
     "scratch-render": "github:TurboWarp/scratch-render#develop",
     "scratch-vm": "github:DashBlocks/scratch-vm#develop-module",
     "style-loader": "^2.0.0",
