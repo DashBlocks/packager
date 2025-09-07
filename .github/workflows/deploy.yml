@@ -22,9 +22,9 @@ jobs:
       with:
         node-version: 22
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --legacy-peer-deps
     - name: Update dependencies
-      run: npm update
+      run: npm update --legacy-peer-deps
     - name: Test
       run: npm test
     - name: Build website
