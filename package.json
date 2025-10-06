@@ -1,6 +1,6 @@
 {
   "name": "@turbowarp/packager",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "description": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.",
   "main": "dist/packager.js",
   "scripts": {
@@ -35,7 +35,7 @@
     "@fiahfy/icns": "^0.0.7",
     "@turbowarp/json": "^0.1.1",
     "@turbowarp/jszip": "^3.11.0",
-    "@turbowarp/sbdl": "^5.0.1",
+    "@turbowarp/sbdl": "^6.0.0",
     "cross-fetch": "^4.1.0",
     "scratch-gui": "github:DashBlocks/scratch-gui#develop",
     "scratch-render-fonts": "github:DashBlocks/penguinmod-render-fonts",
