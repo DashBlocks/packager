@@ -1,8 +1,8 @@
-# TurboWarp Packager
+# Dash Packager
 
-https://packager.turbowarp.org/
+https://dashblocks.github.io/packager
 
-Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.
+Converts Dash projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.
 
 ## Development
 
