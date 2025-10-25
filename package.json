@@ -46,7 +46,7 @@
     "@babel/preset-env": "^7.16.5",
     "@turbowarp/scratch-storage": "^0.0.202505311821",
     "@turbowarp/scratch-svg-renderer": "^1.0.0-202401111326-62c0f26",
-    "babel-jest": "^27.4.5",
+    "babel-jest": "^30.2.0",
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^6.4.1",
     "cross-env": "^10.1.0",
