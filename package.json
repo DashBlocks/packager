@@ -1,6 +1,6 @@
 {
   "name": "@turbowarp/packager",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "description": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.",
   "main": "dist/packager.js",
   "scripts": {
@@ -49,7 +49,7 @@
     "babel-jest": "^27.4.5",
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^6.4.1",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.1.0",
     "css-loader": "^5.2.7",
     "fastestsmallesttextencoderdecoder": "^1.0.22",
     "file-loader": "^6.2.0",
