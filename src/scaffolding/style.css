@@ -154,6 +154,7 @@
   white-space: pre-wrap;
   background-color: #0fbd8c;
 }
+/* Make sure to match background-color with primary color of each category */
 .monitor-root[data-opcode^="motion_"] .monitor-value-color {
   background-color: #4c97ff;
 }
