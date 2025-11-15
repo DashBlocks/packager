@@ -20,14 +20,18 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm ci --legacy-peer-deps
-    - name: Update dependencies
-      run: npm update --legacy-peer-deps
     - name: Build
       run: npm run build
     - name: Test
       run: npm test
-    - name: Upload packager artifact
-      uses: actions/upload-artifact@v4
+    - name: Build website
+      run: |
+        mkdir -p web
+        npm run build-prod
+        cp -r dist/* web
+      env:
+        ENABLE_SERVICE_WORKER: "1"
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: packager
-        path: dist/index.html
+        path: ./web/
