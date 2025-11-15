@@ -157,6 +157,9 @@
 .monitor-root[data-opcode^="motion_"] .monitor-value-color {
   background-color: #4c97ff;
 }
+.monitor-root[data-opcode^="control_"] .monitor-value-color {
+  background-color: #ffab19;
+}
 .monitor-root[data-opcode^="sensing_"] .monitor-value-color {
   background-color: #5cb1d6;
 }
