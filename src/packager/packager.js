@@ -1762,6 +1762,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   miscLimits: true,
   stageWidth: 480,
   stageHeight: 360,
+  stageMode: '2d',
   resizeMode: 'preserve-ratio',
   autoplay: false,
   username: 'player####',

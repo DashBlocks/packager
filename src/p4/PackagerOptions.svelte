@@ -338,6 +338,7 @@
       'miscLimits',
       'stageWidth',
       'stageHeight',
+      'stageMode',
       'resizeMode',
       'username'
     ]);
@@ -441,6 +442,18 @@
         <LearnMore slug="packager/dynamic-stage-resize" />
       </label>
     </div>
+    <label class="option">
+      {$_('options.stageMode')}
+      <div class="group">
+        <label class="option">
+          <input type="radio" name="stage-mode" value="2d" bind:group={$options.stageMode}>
+          {$_('options.stageMode-2d')}
+        </label>
+        <label class="option">
+          <input type="radio" name="stage-mode" value="console" bind:group={$options.stageMode}>
+          {$_('options.stageMode-console')}
+        </label>
+    </label>
   </div>
 </Section>
 
