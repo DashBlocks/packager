@@ -317,6 +317,8 @@ class Scaffolding extends EventTarget {
     this.vm.setCompatibilityMode(true);
     this.vm.setLocale(navigator.language);
 
+    this._updateStageMode();
+
     this.vm.on('MONITORS_UPDATE', this._onmonitorsupdate.bind(this));
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
     this.vm.on('PROJECT_RUN_START', () => this.dispatchEvent(new Event('PROJECT_RUN_START')));
@@ -577,6 +579,7 @@ class Scaffolding extends EventTarget {
         this._addLayer(this._console);
         this._consoleLines = new Array();
         this._consoleLinesCount = 25;
+        this._consoleSymbols = 80;
         new PseudoConsole(this);
       } else {
         this._canvas.style.display = 'none';
@@ -593,11 +596,13 @@ class Scaffolding extends EventTarget {
 
   _updateConsole() {
     if (!this._consoleLines) return;
-    const textContent = this._consoleLines.join('\n');
     this._console.innerHTML = '';
-    const span = document.createElement('span');
-    span.textContent = textContent;
-    this._console.appendChild(span);
+    this._consoleLines.forEach(line => {
+      const span = document.createElement('span');
+      span.textContent = line;
+      span.style.display = 'block';
+      this._console.appendChild(span);
+    });
   }
 }
 
