@@ -351,6 +351,11 @@ class Scaffolding extends EventTarget {
       }
     });
 
+    this.vm.on('STAGE_MODE_CHANGED', (mode) => {
+      this.stageMode = mode;
+      this._updateStageMode();
+    });
+
     this.cloudManager = new Cloud.CloudManager(this);
 
     this.renderer = new Renderer(
@@ -571,6 +576,29 @@ class Scaffolding extends EventTarget {
       throw new Error('Invalid list value');
     }
     this._lookupVariable(name, 'list').value = value;
+  }
+
+  _updateStageMode() {
+    if (this.stageMode === 'console') {
+      if (!this._console) {
+        this._canvas.style.display = 'none';
+        this._console = document.createElement('div');
+        this._console.className = styles.pseudoConsoleWrapper;
+        this._addLayer(this._console);
+        this._consoleLines = new Array();
+        this._consoleLinesCount = 25;
+        new PseudoConsole(this);
+      } else {
+        this._canvas.style.display = 'none';
+      }
+    } else if (this.stageMode === '2d') {
+      if (this._canvas) {
+        this._canvas.style.display = '';
+      }
+      if (this._console) {
+        this._console.style.display = 'none';
+      }
+    }
   }
 
   _updateConsole() {
