@@ -317,16 +317,6 @@ class Scaffolding extends EventTarget {
     this.vm.setCompatibilityMode(true);
     this.vm.setLocale(navigator.language);
 
-    if (this.stageMode === 'console') {
-      this._canvas.style.display = 'none';
-      this._console = document.createElement('div');
-      this._console.className = styles.pseudoConsoleWrapper;
-      this._addLayer(this._console);
-      this._consoleLines = new Array();
-      this._consoleLinesCount = 25;
-      new PseudoConsole(this);
-    }
-
     this.vm.on('MONITORS_UPDATE', this._onmonitorsupdate.bind(this));
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
     this.vm.on('PROJECT_RUN_START', () => this.dispatchEvent(new Event('PROJECT_RUN_START')));
