@@ -64,14 +64,6 @@ class Scaffolding extends EventTarget {
     this._canvas = document.createElement('canvas');
     this._canvas.className = styles.canvas;
     this._addLayer(this._canvas);
-    if (this.stageMode === 'console') {
-      this._console = document.createElement('div');
-      this._console.className = styles.pseudoConsoleWrapper;
-      this._addLayer(this._console);
-      this._consoleLines = new Array();
-      this._consoleLinesCount = 25;
-      new PseudoConsole(this);
-    }
 
     this._overlays = document.createElement('div');
     this._overlays.className = styles.scaledOverlaysInner;
@@ -324,6 +316,17 @@ class Scaffolding extends EventTarget {
     this.vm = new VM();
     this.vm.setCompatibilityMode(true);
     this.vm.setLocale(navigator.language);
+
+    if (this.stageMode === 'console') {
+      this._canvas.style.display = 'none';
+      this._console = document.createElement('div');
+      this._console.className = styles.pseudoConsoleWrapper;
+      this._addLayer(this._console);
+      this._consoleLines = new Array();
+      this._consoleLinesCount = 25;
+      new PseudoConsole(this);
+    }
+
     this.vm.on('MONITORS_UPDATE', this._onmonitorsupdate.bind(this));
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
     this.vm.on('PROJECT_RUN_START', () => this.dispatchEvent(new Event('PROJECT_RUN_START')));
@@ -571,6 +574,7 @@ class Scaffolding extends EventTarget {
   }
 
   _updateConsole() {
+    if (!this._consoleLines) return;
     const textContent = this._consoleLines.join('\n');
     this._console.innerHTML = '';
     const span = document.createElement('span');

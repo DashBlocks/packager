@@ -1598,6 +1598,7 @@ cd "$(dirname "$0")"
         enabled: ${this.options.compiler.enabled},
         warpTimer: ${this.options.compiler.warpTimer}
       });
+      if (vm.setStageMode) vm.setStageMode(${JSON.stringify(this.options.stageMode)});
       if (vm.renderer.setMaxTextureDimension) vm.renderer.setMaxTextureDimension(${this.options.maxTextureDimension});
 
       // enforcePrivacy threat model only makes sense in the editor

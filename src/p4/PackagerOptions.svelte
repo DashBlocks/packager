@@ -97,6 +97,7 @@
   const advancedOptionsInitiallyOpen = (
     $options.compiler.enabled !== defaultOptions.compiler.enabled ||
     $options.compiler.warpTimer !== defaultOptions.compiler.warpTimer ||
+    $options.stageMode !== defaultOptions.stageMode ||
     $options.extensions.length !== 0 ||
     $options.bakeExtensions !== defaultOptions.bakeExtensions ||
     $options.custom.css !== '' ||
