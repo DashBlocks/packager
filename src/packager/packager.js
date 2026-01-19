@@ -1446,6 +1446,7 @@ cd "$(dirname "$0")"
       scaffolding.resizeMode = ${JSON.stringify(this.options.resizeMode)};
       scaffolding.editableLists = ${this.options.monitors.editableLists};
       scaffolding.usePackagedRuntime = ${this.options.packagedRuntime};
+      scaffolding.stageMode = ${JSON.stringify(this.options.stageMode)};
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 

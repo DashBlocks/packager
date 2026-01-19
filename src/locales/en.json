@@ -214,6 +214,15 @@
     "dynamicResize": {
       "string": "Dynamically resize size to match window size (experimental)"
     },
+    "stageMode": {
+      "string": "Stage Mode"
+    },
+    "stageMode-2d": {
+      "string": "2D Mode"
+    },
+    "stageMode-console": {
+      "string": "Console Mode"
+    },
     "username": {
       "string": "Username (each \"#\" gets replaced with a random number)"
     },

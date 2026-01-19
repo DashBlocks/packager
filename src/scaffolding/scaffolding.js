@@ -2,6 +2,7 @@ import JSZip from '@turbowarp/jszip';
 
 import {VM, Renderer, AudioEngine, BitmapAdapter} from './scratch-libraries';
 import Storage from './storage';
+import PseudoConsole from './pseudo-console';
 import {EventTarget} from '../common/event-target';
 import VideoProvider from './video';
 import Cloud from './cloud';
@@ -34,6 +35,7 @@ class Scaffolding extends EventTarget {
 
     this.width = 480;
     this.height = 360;
+    this.stageMode = '2d';
     this.resizeMode = 'preserve-ratio';
     this.editableLists = false;
     this.shouldConnectPeripherals = true;
@@ -62,6 +64,14 @@ class Scaffolding extends EventTarget {
     this._canvas = document.createElement('canvas');
     this._canvas.className = styles.canvas;
     this._addLayer(this._canvas);
+    if (this.stageMode === 'console') {
+      this._console = document.createElement('div');
+      this._console.className = styles.pseudoConsoleWrapper;
+      this._addLayer(this._console);
+      this._consoleLines = new Array();
+      this._consoleLinesCount = 25;
+      new PseudoConsole(this);
+    }
 
     this._overlays = document.createElement('div');
     this._overlays.className = styles.scaledOverlaysInner;
@@ -450,11 +460,18 @@ class Scaffolding extends EventTarget {
       .then(() => {
         this.vm.setCloudProvider(this.cloudManager);
         this.cloudManager.projectReady();
-        this.renderer.draw();
-        // Render again after a short delay because some costumes are loaded async
-        setTimeout(() => {
+        if (this.stageMode === 'console') {
+          this._updateConsole();
+          setTimeout(() => {
+            this._updateConsole();
+          });
+        } else if (this.stageMode === '2d') {
           this.renderer.draw();
-        });
+          // Render again after a short delay because some costumes are loaded async
+          setTimeout(() => {
+            this.renderer.draw();
+          });
+        }
 
         if (this.shouldConnectPeripherals) {
           this._connectPeripherals();
@@ -552,6 +569,14 @@ class Scaffolding extends EventTarget {
     }
     this._lookupVariable(name, 'list').value = value;
   }
+
+  _updateConsole() {
+    const textContent = this._consoleLines.join('\n');
+    this._console.innerHTML = '';
+    const span = document.createElement('span');
+    span.textContent = textContent;
+    this._console.appendChild(span);
+  }
 }
 
 export {
@@ -560,6 +585,7 @@ export {
   VM,
   Renderer,
   Storage,
+  PseudoConsole,
   AudioEngine,
   JSZip
 };
