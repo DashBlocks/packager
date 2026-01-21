@@ -22,7 +22,9 @@ class PseudoConsole {
         }
       },
       clear: this.clear.bind(this),
-      addLine: this.addLine.bind(this)
+      addLine: this.addLine.bind(this),
+      editLine: this.editLine.bind(this),
+      editSymbol: this.editSymbol.bind(this)
     };
   }
 
