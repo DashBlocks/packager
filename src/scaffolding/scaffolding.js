@@ -578,6 +578,10 @@ class Scaffolding extends EventTarget {
         this._console.className = styles.pseudoConsoleWrapper;
         this._addLayer(this._console);
         this._consoleLines = new Array();
+        this._consoleCursor = {
+          row: 0,
+          symbol: 0
+        };
         this._consoleLinesCount = 25;
         this._consoleSymbols = 80;
         new PseudoConsole(this);

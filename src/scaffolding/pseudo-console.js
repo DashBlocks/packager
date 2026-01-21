@@ -7,6 +7,9 @@ class PseudoConsole {
         return {
           get lines () {
             return self.parent._consoleLines;
+          },
+          get cursor () {
+            return self.parent._consoleCursor;
           }
         };
       },
@@ -23,22 +26,68 @@ class PseudoConsole {
     };
   }
 
-  clear () {
-    if (this.parent.stageMode === 'console') {
-      this.parent._consoleLines = new Array();
-      this.parent._updateConsole();
-    }
+  get realCursor () {
+    return {
+      row: Math.max(0, Math.min(this.parent._consoleLinesCount - 1, Math.round(+this.parent._consoleCursor.row))),
+      symbol: Math.max(0, Math.min(this.parent._consoleSymbols - 1, Math.round(+this.parent._consoleCursor.symbol)))
+    };
   }
 
-  addLine (line) {
-    if (this.parent.stageMode === 'console') {
-      const splitted = String(line).split('\n').reduce((acc, value) => [...acc, ...value.match(new RegExp(`.{1,${this.parent._consoleSymbols}}`, 'g'))], []);
-      this.parent._consoleLines = [...this.parent._consoleLines, ...splitted].toSpliced(
-        0,
-        Math.max(0, this.parent._consoleLines.length + splitted.length - this.parent._consoleLinesCount)
-      );
-      this.parent._updateConsole();
+  clear () {
+    this.parent._consoleLines = new Array();
+    this.parent._consoleCursor = {
+      row: 0,
+      symbol: 0
+    };
+    this.parent._updateConsole();
+  }
+
+  addLine(line, cursor2NextLine) {
+    const splitted = String(line)
+      .split('\n')
+      .reduce((acc, value) => [...acc, ...value.match(new RegExp(`.{1,${this.parent._consoleSymbols}}`, 'g'))], []);
+    const newLines = this.parent._consoleLines.toSpliced(this.realCursor.row, 0, ...splitted);
+    this.parent._consoleLines = newLines.toSpliced(
+      0,
+      Math.max(0, newLines.length - (this.parent._consoleLinesCount - 1))
+    );
+    if (cursor2NextLine) {
+      this.parent._consoleCursor = {
+        row: this.realCursor.row + splitted.length - Math.max(0, newLines.length - (this.parent._consoleLinesCount - 1)),
+        symbol: 0
+      };
+    } else {
+      this.parent._consoleCursor = {
+        row: this.realCursor.row - Math.max(0, newLines.length - (this.parent._consoleLinesCount - 1)),
+        symbol: this.realCursor.symbol
+      };
     }
+    this.parent._updateConsole();
+  }
+
+  editLine(line) {
+    const splitted = String(line)
+      .split('\n')
+      .reduce((acc, value) => [...acc, ...value.match(new RegExp(`.{1,${this.parent._consoleSymbols}}`, 'g'))], []);
+    const newLines = this.parent._consoleLines.toSpliced(this.realCursor.row, 1, ...splitted);
+    this.parent._consoleLines = newLines.toSpliced(
+      0,
+      Math.max(0, newLines.length - (this.parent._consoleLinesCount - 1))
+    );
+    this.parent._consoleCursor = {
+      row: this.realCursor.row - Math.max(0, newLines.length - (this.parent._consoleLinesCount - 1)),
+      symbol: this.realCursor.symbol
+    };
+  }
+
+  editSymbol(value) {
+    const symbol = String(value)[0];
+    const line = (this.parent._consoleLines[this.realCursor.row] || '').padEnd(this.realCursor.symbol + 1, ' ');
+    this.parent._consoleLines = this.parent._consoleLines.toSpliced(
+      this.realCursor.row,
+      1,
+      line.substring(0, this.realCursor.symbol) + symbol + line.substring(this.realCursor.symbol + 1, line.length)
+    );
   }
 }
 
