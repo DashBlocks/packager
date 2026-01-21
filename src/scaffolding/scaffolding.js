@@ -572,8 +572,9 @@ class Scaffolding extends EventTarget {
 
   _updateStageMode() {
     if (this.stageMode === 'console') {
+      this._canvas.style.display = 'none';
+
       if (!this._console) {
-        this._canvas.style.display = 'none';
         this._console = document.createElement('div');
         this._consoleLines = new Array();
         this._consoleCursor = {
@@ -583,26 +584,22 @@ class Scaffolding extends EventTarget {
         this._consoleLinesCount = 25;
         this._consoleSymbols = 80;
         this._console.className = styles.pseudoConsoleWrapper;
-        this._console.styles = `
-          * {
-            height: ${this.height},
-            width: ${this.width},
-            fontSize: ${this.height / this._consoleLinesCount},
-            lineHeight: ${this.height / this._consoleLinesCount}px
-          }
-        `;
         this._addLayer(this._console);
         new PseudoConsole(this);
-      } else {
-        this._canvas.style.display = 'none';
       }
+
+      const lineHeight = this.height / this._consoleLinesCount;
+      Object.assign(this._console.style, {
+        display: 'block',
+        height: `${this.height}px`,
+        width: `${this.width}px`,
+        fontSize: `${lineHeight}px`,
+        lineHeight: `${lineHeight}px`
+      });
+
     } else if (this.stageMode === '2d') {
-      if (this._canvas) {
-        this._canvas.style.display = '';
-      }
-      if (this._console) {
-        this._console.style.display = 'none';
-      }
+      if (this._canvas) this._canvas.style.display = '';
+      if (this._console) this._console.style.display = 'none';
     }
   }
 
