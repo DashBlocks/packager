@@ -575,8 +575,6 @@ class Scaffolding extends EventTarget {
       if (!this._console) {
         this._canvas.style.display = 'none';
         this._console = document.createElement('div');
-        this._console.className = styles.pseudoConsoleWrapper;
-        this._addLayer(this._console);
         this._consoleLines = new Array();
         this._consoleCursor = {
           row: 0,
@@ -584,6 +582,14 @@ class Scaffolding extends EventTarget {
         };
         this._consoleLinesCount = 25;
         this._consoleSymbols = 80;
+        this._console.className = styles.pseudoConsoleWrapper;
+        this._console.styles = `
+          height: ${this.height},
+          width: ${this.width},
+          fontSize: ${this.height / this._consoleLinesCount},
+          lineHeight: ${this.height / this._consoleLinesCount}px
+        `;
+        this._addLayer(this._console);
         new PseudoConsole(this);
       } else {
         this._canvas.style.display = 'none';
