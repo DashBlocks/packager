@@ -45,6 +45,7 @@ class PseudoConsole {
   }
 
   addLine (line, cursor2NextLine) {
+    if (!String(line)) return;
     const splitted = String(line)
       .split('\n')
       .reduce((acc, value) => [...acc, ...value.match(new RegExp(`.{1,${this.parent._consoleSymbols}}`, 'g'))], []);
@@ -68,6 +69,7 @@ class PseudoConsole {
   }
 
   editLine (line) {
+    if (!String(line)) return;
     const splitted = String(line)
       .split('\n')
       .reduce((acc, value) => [...acc, ...value.match(new RegExp(`.{1,${this.parent._consoleSymbols}}`, 'g'))], []);
@@ -83,6 +85,7 @@ class PseudoConsole {
   }
 
   editSymbol (value) {
+    if (!String(value)?.[0]) return;
     const symbol = String(value)[0];
     const line = (this.parent._consoleLines[this.realCursor.row] || '').padEnd(this.realCursor.symbol + 1, ' ');
     this.parent._consoleLines = this.parent._consoleLines.toSpliced(
