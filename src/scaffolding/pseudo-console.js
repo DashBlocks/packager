@@ -11,8 +11,9 @@ class PseudoConsole {
           get cursor () {
             return self.parent._consoleCursor;
           },
-          set setConsoleCursor (cursor) {
-            self.parent._consoleCursor = cursor;
+          setConsoleCursor: (row, symbol) => {
+            self.parent._consoleCursor = {row, symbol};
+            self.parent._updateConsole();
           }
         };
       },
@@ -85,6 +86,7 @@ class PseudoConsole {
       row: this.realCursor.row - Math.max(0, newLines.length - (this.parent._consoleLinesCount - 1)),
       symbol: this.realCursor.symbol
     };
+    this.parent._updateConsole();
   }
 
   editSymbol (value) {
@@ -96,6 +98,7 @@ class PseudoConsole {
       1,
       line.substring(0, this.realCursor.symbol) + symbol + line.substring(this.realCursor.symbol + 1, line.length)
     );
+    this.parent._updateConsole();
   }
 }
 
