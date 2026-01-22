@@ -587,16 +587,6 @@ class Scaffolding extends EventTarget {
         this._addLayer(this._console);
         new PseudoConsole(this);
       }
-
-      const lineHeight = this.height / this._consoleLinesCount;
-      Object.assign(this._console.style, {
-        display: 'block',
-        height: `${this.height * 2}px`,
-        width: `${this.width * 2}px`,
-        fontSize: `${lineHeight}px`,
-        lineHeight: `${lineHeight}px`
-      });
-
     } else if (this.stageMode === '2d') {
       if (this._canvas) this._canvas.style.display = '';
       if (this._console) this._console.style.display = 'none';
@@ -609,7 +599,6 @@ class Scaffolding extends EventTarget {
     this._consoleLines.forEach(line => {
       const span = document.createElement('span');
       span.textContent = line;
-      span.style.display = 'block';
       this._console.appendChild(span);
     });
   }

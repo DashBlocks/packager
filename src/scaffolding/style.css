@@ -350,5 +350,6 @@
   flex-direction: column;
   background-color: black;
   color: white;
-  overflow: auto;
+  width: 100%;
+  height: 100%;
 }
