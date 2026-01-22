@@ -591,8 +591,8 @@ class Scaffolding extends EventTarget {
       const lineHeight = this.height / this._consoleLinesCount;
       Object.assign(this._console.style, {
         display: 'block',
-        height: `${this.height}px`,
-        width: `${this.width}px`,
+        height: `${this.height * 2}px`,
+        width: `${this.width * 2}px`,
         fontSize: `${lineHeight}px`,
         lineHeight: `${lineHeight}px`
       });

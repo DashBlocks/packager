@@ -10,6 +10,9 @@ class PseudoConsole {
           },
           get cursor () {
             return self.parent._consoleCursor;
+          },
+          set setConsoleCursor (cursor) {
+            self.parent._consoleCursor = cursor;
           }
         };
       },
