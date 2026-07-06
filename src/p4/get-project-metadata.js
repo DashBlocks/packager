@@ -29,7 +29,7 @@ const getProjectMetadata = async (id) => {
       url: `https://api.dashblocks.org/projects/${id}`,
       type: 'json'
     });
-    return meta?.project;
+    return meta.project;
   } catch (e) {
     if (e && e.status === 404) {
       throw new CannotAccessProjectError(`Cannot access project ${id}`);
