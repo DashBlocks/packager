@@ -1,7 +1,7 @@
 import {CannotAccessProjectError} from '../common/errors';
 import request from '../common/request';
 
-const getProjectMetadata = async (id) => {
+const getScratchProjectMetadata = async (id) => {
   try {
     const meta = await request({
       url: [
@@ -23,4 +23,22 @@ const getProjectMetadata = async (id) => {
   }
 };
 
-export default getProjectMetadata;
+const getProjectMetadata = async (id) => {
+  try {
+    const meta = await request({
+      url: `https://api.dashblocks.org/projects/${id}`,
+      type: 'json'
+    });
+    return meta?.project;
+  } catch (e) {
+    if (e && e.status === 404) {
+      throw new CannotAccessProjectError(`Cannot access project ${id}`);
+    }
+    throw e;
+  }
+};
+
+export {
+  getScratchProjectMetadata,
+  getProjectMetadata
+};

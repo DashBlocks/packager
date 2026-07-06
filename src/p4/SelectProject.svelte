@@ -9,7 +9,7 @@
   import writablePersistentStore from './persistent-store';
   import {progress, currentTask} from './stores';
   import {UserError} from '../common/errors';
-  import getProjectMetadata from './get-project-metadata';
+  import {getProjectMetadata, getScratchProjectMetadata} from './get-project-metadata';
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
@@ -173,10 +173,10 @@
       if (!id) {
         throw new UserError($_('select.invalidId'));
       }
-      uniqueId = `#${id}`;
+      uniqueId = `#s${id}`;
 
       task.setProgressText($_('progress.loadingProjectMetadata'));
-      const metadata = await getProjectMetadata(id);
+      const metadata = await getScratchProjectMetadata(id);
 
       const token = metadata.token;
       projectTitle = metadata.title;
@@ -190,10 +190,14 @@
       if (!dashId) {
         throw new UserError($_('select.invalidId'));
       }
-      uniqueId = `~${dashId}`;
+      uniqueId = `#${dashId}`;
+
+      task.setProgressText($_('progress.loadingProjectMetadata'));
+      const metadata = await getProjectMetadata(id);
+
+      projectTitle = metadata.name;
 
       const url = `https://api.dashblocks.org/get-project/${dashId}`;
-      projectTitle = `Dash Project ${dashId}`;
       task.setProgressText($_('progress.loadingProjectData'));
       project = await (await loadProject.fromURL(url, progressCallback)).promise;
     } else if ($type === 'file') {
