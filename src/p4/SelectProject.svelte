@@ -193,7 +193,7 @@
       uniqueId = `#${dashId}`;
 
       task.setProgressText($_('progress.loadingProjectMetadata'));
-      const metadata = await getProjectMetadata(id);
+      const metadata = await getProjectMetadata(dashId);
 
       projectTitle = metadata.name;
 
