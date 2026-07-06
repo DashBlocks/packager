@@ -122,6 +122,10 @@
       "string": "Select the project you want to package by copying and pasting the Scratch project link or using one of the other modes. If you use a project you didn't make, make sure to credit the creator."
     },
     "id": {
+      "string": "Dash Project ID or URL",
+      "developer_comment": "Radio option to select a project from the Dash website"
+    },
+    "scratchId": {
       "string": "Scratch Project ID or URL",
       "developer_comment": "Radio option to select a project from the Scratch website"
     },

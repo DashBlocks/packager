@@ -15,10 +15,12 @@
   import Task from './task';
   import importExternalProject from './import-external-project';
 
-  const defaultProjectId = '60917032';
+  const defaultProjectId = '291';
+  const defaultScratchProjectId = '60917032';
 
   const type = writablePersistentStore('SelectProject.type', 'id');
   const projectId = writablePersistentStore('SelectProject.id', defaultProjectId);
+  const scratchProjectId = writablePersistentStore('SelectProject.scratchId', defaultScratchProjectId);
   const projectUrl = writablePersistentStore('SelectProject.url', '');
 
   const projectIdInURL = /^#\d+$/.test(location.hash) ? location.hash.substring(1) : null;
@@ -54,12 +56,33 @@
   };
 
   // Reset project when input changes
-  $: $projectId, $type, resetProjectAndCancelTask();
+  $: $projectId, $scratchProjectId, $type, resetProjectAndCancelTask();
 
   // just incase some non-number string was stored from older versions
   $projectId = extractProjectId($projectId);
+  $scratchProjectId = extractProjectId($scratchProjectId);
 
-  const getDisplayedProjectURL = () => `https://scratch.mit.edu/projects/${$projectId}`;
+  const getDisplayedDashProjectURL = () => {
+    const id = $projectId;
+    if (!id) return '';
+    return `https://dashblocks.org/#${id}`;
+  };
+
+  const handleDashInput = (e) => {
+    $projectId = extractProjectId(e.target.value);
+    e.target.value = getDisplayedDashProjectURL();
+  };
+
+  const handleScratchInput = (e) => {
+    $scratchProjectId = extractProjectId(e.target.value);
+    e.target.value = getDisplayedScratchProjectURL();
+  };
+
+  const getDisplayedScratchProjectURL = () => {
+    const id = $scratchProjectId;
+    if (!id) return '';
+    return `https://scratch.mit.edu/projects/${id}`;
+  };
 
   const submitOnEnter = (e) => {
     if (e.key === 'Enter') {
@@ -68,7 +91,7 @@
   };
   const handleInput = (e) => {
     $projectId = extractProjectId(e.target.value);
-    e.target.value = getDisplayedProjectURL();
+    e.target.value = getDisplayedDashProjectURL();
   };
   const handleFocus = (e) => {
     e.target.select();
@@ -145,8 +168,8 @@
       }
     };
 
-    if ($type === 'id') {
-      id = $projectId;
+    if ($type === 'scratchId') {
+      id = $scratchProjectId;
       if (!id) {
         throw new UserError($_('select.invalidId'));
       }
@@ -162,6 +185,17 @@
       const {promise: loadProjectPromise, terminate} = await loadProject.fromID(id, token, progressCallback);
       task.whenAbort(terminate);
       project = await loadProjectPromise;
+    } else if ($type === 'id') {
+      const dashId = $projectId;
+      if (!dashId) {
+        throw new UserError($_('select.invalidId'));
+      }
+      uniqueId = `~${dashId}`;
+
+      const url = `https://api.dashblocks.org/get-project/${dashId}`;
+      projectTitle = `Dash Project ${dashId}`;
+      task.setProgressText($_('progress.loadingProjectData'));
+      project = await (await loadProject.fromURL(url, progressCallback)).promise;
     } else if ($type === 'file') {
       const files = fileInputElement.files;
       const file = files && files[0];
@@ -237,7 +271,16 @@
           {$_('select.id')}
         </label>
         {#if $type === "id"}
-          <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleInput} on:focus={handleFocus}>
+          <input type="text" value={getDisplayedDashProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleDashInput} on:focus={handleFocus}>
+        {/if}
+      </div>
+      <div class="option">
+        <label>
+          <input type="radio" name="project-type" bind:group={$type} value="scratchId">
+          {$_('select.scratchId')}
+        </label>
+        {#if $type === "scratchId"}
+          <input type="text" value={getDisplayedScratchProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleScratchInput} on:focus={handleFocus}>
         {/if}
       </div>
       <!-- TurboWarp Desktop looks for the file-input-option class for special handling, so be careful when modifying this. -->
@@ -259,7 +302,7 @@
       </div>
     </div>
 
-    {#if $type === "id"}
+    {#if $type === "scratchId"}
       <p>
         {$_('select.unsharedProjects')}
       </p>
