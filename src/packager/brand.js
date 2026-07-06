@@ -31,11 +31,11 @@ If this is set to an empty string, the link is removed.
 
 module.exports = {
   APP_NAME: 'Dash Packager',
-  WEBSITE: 'https://dashblocks.github.io/packager',
+  WEBSITE: 'https://dashblocks.org/packager',
   COPYRIGHT_NOTICE: `The Source Code Form of this program is available under the terms of the
 Mozilla Public License, v. 2.0. You can obtain a copy of the license at
 https://www.mozilla.org/en-US/MPL/2.0/.`,
-  ACCENT_COLOR: '#ffb74cff',
+  ACCENT_COLOR: '#ff8e4c',
   SOURCE_CODE: 'https://github.com/DashBlocks/packager',
   FEEDBACK_PRIMARY: {
     name: 'Scratch',
@@ -45,6 +45,6 @@ https://www.mozilla.org/en-US/MPL/2.0/.`,
     name: 'GitHub',
     link: 'https://github.com/DashBlocks/packager/issues'
   },
-  DONATE: '',
-  PRIVACY_POLICY: 'https://dashblocks.github.io/privacy.html',
+  DONATE: 'https://dashblocks.org/donate',
+  PRIVACY_POLICY: 'https://dashblocks.org/privacy',
 };
