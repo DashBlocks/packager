@@ -1,6 +1,6 @@
 # Dash Packager
 
-https://dashblocks.github.io/packager
+https://dashblocks.org/packager
 
 Converts Dash projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.
 
