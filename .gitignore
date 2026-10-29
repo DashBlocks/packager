@@ -9,3 +9,6 @@ packaged-project
 
 # macOS
 .DS_Store
+
+# Editor config
+.replit
